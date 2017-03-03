@@ -2,7 +2,6 @@ import play.core.PlayVersion
 import sbt.Keys._
 import sbt._
 import uk.gov.hmrc.DefaultBuildSettings._
-import uk.gov.hmrc.NexusPublishing._
 import uk.gov.hmrc.PublishingSettings._
 import uk.gov.hmrc.{SbtAutoBuildPlugin, ShellPrompt}
 import uk.gov.hmrc.versioning.SbtGitVersioning
@@ -14,17 +13,18 @@ object HmrcBuild extends Build {
 
   lazy val CspClient = Project(appName,  file("."))
     .enablePlugins(SbtAutoBuildPlugin, SbtGitVersioning)
+    .settings(scalaSettings: _*)
+    .settings(defaultSettings(): _*)
     .settings(
       targetJvm := "jvm-1.8",
       shellPrompt := ShellPrompt(appName),
       libraryDependencies ++= compile ++ testCompile,
       resolvers := Seq(
-        Resolver.bintrayRepo("hmrc", "releases"), "typesafe-releases" at "http://repo.typesafe.com/typesafe/releases/"
+        Resolver.bintrayRepo("hmrc", "releases"), Resolver.typesafeRepo("typesafe-releases"), Resolver.jcenterRepo
       )
     )
     .settings(scalaVersion := "2.11.7")
     .settings(publishAllArtefacts: _*)
-    .settings(nexusPublishingSettings: _*)
     .settings(resolvers += Resolver.bintrayRepo("hmrc", "releases"))
     .disablePlugins(sbt.plugins.JUnitXmlReportPlugin)
 
