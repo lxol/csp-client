@@ -30,17 +30,17 @@ object HmrcBuild extends Build {
 
 
   val compile = Seq(
-    "uk.gov.hmrc" %% "play-config" % "3.0.0",
+    "uk.gov.hmrc" %% "play-config" % "4.2.0",
     "uk.gov.hmrc" %% "logback-json-logger" % "3.1.0",
-    "uk.gov.hmrc" %% "play-partials" % "5.2.0"
+    "uk.gov.hmrc" %% "play-partials" % "5.3.0"
   )
 
   val testCompile = Seq(
-    "org.scalatest" %% "scalatest" % "2.2.4" % "test",
-    "com.typesafe.play" %% "play-test" % PlayVersion.current % "test",
-    "org.mockito" % "mockito-all" % "1.9.5" % "test",
-    "org.pegdown" % "pegdown" % "1.5.0" % "test",
-    "org.hamcrest" % "hamcrest-all" % "1.3" % "test"
+    "org.scalatest"          %% "scalatest"            % "2.2.4"             % "test",
+    "com.typesafe.play"      %% "play-test"            % PlayVersion.current % "test",
+    "org.mockito"            % "mockito-all"           % "1.9.5"             % "test",
+    "org.pegdown"            % "pegdown"               % "1.5.0"             % "test",
+    "uk.gov.hmrc"            %% "hmrctest"             % "2.1.0"             % "test"
   )
 
 
