@@ -10,11 +10,12 @@ resolvers ++= Seq("hmrc-snapshots" at hmrcRepoHost + "/content/repositories/hmrc
   "hmrc-releases" at hmrcRepoHost + "/content/repositories/hmrc-releases",
   "typesafe-releases" at hmrcRepoHost + "/content/repositories/typesafe-releases")
 
-addSbtPlugin("uk.gov.hmrc" % "sbt-auto-build" % "1.0.0")
+addSbtPlugin("uk.gov.hmrc" % "sbt-auto-build" % "1.4.0")
 
-addSbtPlugin("uk.gov.hmrc" % "sbt-git-versioning" % "0.8.0")
+addSbtPlugin("uk.gov.hmrc" % "sbt-git-versioning" % "0.9.0")
 
 addSbtPlugin("uk.gov.hmrc" % "sbt-settings" % "3.3.0")
 
 addSbtPlugin("com.typesafe.play" % "sbt-plugin" % "2.5.8")
+
 

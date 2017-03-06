@@ -11,19 +11,22 @@ object HmrcBuild extends Build {
   val appName = "csp-client"
   lazy val plugins : Seq[Plugins] = Seq(play.sbt.PlayScala)
 
-  lazy val CspClient = Project(appName,  file("."))
+  lazy val microservice = Project(appName, file("."))
     .enablePlugins(SbtAutoBuildPlugin, SbtGitVersioning)
     .settings(scalaSettings: _*)
     .settings(defaultSettings(): _*)
     .settings(
       targetJvm := "jvm-1.8",
       libraryDependencies ++= compile ++ testCompile,
+      crossScalaVersions := Seq("2.11.7", "2.10.4")
+    )
+    .settings(
       resolvers := Seq(
-        Resolver.bintrayRepo("hmrc", "releases"), Resolver.typesafeRepo("typesafe-releases"), Resolver.jcenterRepo
+        Resolver.bintrayRepo("hmrc", "releases"),
+        Resolver.typesafeRepo("releases"),
+        Resolver.jcenterRepo
       )
     )
-    .settings(scalaVersion := "2.11.7")
-    .settings(publishAllArtefacts: _*)
 
   val compile = Seq(
     "uk.gov.hmrc" %% "play-config" % "4.2.0",
