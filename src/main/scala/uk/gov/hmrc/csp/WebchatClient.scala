@@ -20,14 +20,16 @@ import java.util.concurrent.TimeUnit
 
 import play.api.mvc.Request
 import play.twirl.api.Html
-import uk.gov.hmrc.play.http.hooks.HttpHook
+import uk.gov.hmrc.http.hooks.HttpHook
 import uk.gov.hmrc.play.http.ws.WSGet
 import uk.gov.hmrc.play.partials._
 import uk.gov.hmrc.play.config.ServicesConfig
 import TimeUnit._
 
 import play.Logger
+import uk.gov.hmrc.http.HttpGet
 
+import scala.concurrent.ExecutionContext
 import scala.concurrent.duration.Duration
 
 
@@ -36,15 +38,15 @@ object WebchatClient extends ServicesConfig {
   lazy val serviceUrl = baseUrl("csp-partials") + "/csp-partials"
 
 
-  def webchatOfferPartial()(implicit request: Request[_]): Html = {
+  def webchatOfferPartial()(implicit request: Request[_], ec: ExecutionContext): Html = {
     getPartialContent(serviceUrl + "/webchat-offers")
   }
 
-  def webchatClickToChatScriptPartial(entryPoint: String, template: String)(implicit request: Request[_]): Html = {
+  def webchatClickToChatScriptPartial(entryPoint: String, template: String)(implicit request: Request[_], ec: ExecutionContext): Html = {
     getPartialContent(serviceUrl + s"/webchat-click-to-chat/$entryPoint/$template")
   }
 
-  private def getPartialContent(url: String)(implicit request: Request[_]) = {
+  private def getPartialContent(url: String)(implicit request: Request[_], ec: ExecutionContext) = {
     val partialContent = CachedStaticHtmlPartialProvider.getPartialContent(url)
 
     partialContent.body match {
@@ -57,7 +59,7 @@ object WebchatClient extends ServicesConfig {
   }
 
   object CachedStaticHtmlPartialProvider extends CachedStaticHtmlPartialRetriever with ServicesConfig {
-    override val httpGet = new WSGet {
+    override val httpGet = new HttpGet with WSGet {
       override val hooks: Seq[HttpHook] = NoneRequired
     }
 

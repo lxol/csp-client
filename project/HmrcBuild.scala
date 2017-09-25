@@ -31,7 +31,8 @@ object HmrcBuild extends Build {
   val compile = Seq(
     "uk.gov.hmrc" %% "play-config" % "4.3.0",
     "uk.gov.hmrc" %% "logback-json-logger" % "3.1.0",
-    "uk.gov.hmrc" %% "play-partials" % "5.3.0"
+    "uk.gov.hmrc" %% "play-partials" % "6.0.0",
+    "uk.gov.hmrc" %% "http-verbs" % "7.2.0"
   )
 
   val testCompile = Seq(
