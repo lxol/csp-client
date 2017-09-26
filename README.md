@@ -14,7 +14,6 @@ To use this in your project you will need to do the following steps:
 3. Get the offer urls setup on the eGain servers. The CSP team can help with this.     
 
 
-
 Notes:
 ------
 
