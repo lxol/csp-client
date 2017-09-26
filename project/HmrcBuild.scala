@@ -18,7 +18,7 @@ object HmrcBuild extends Build {
     .settings(
       targetJvm := "jvm-1.8",
       libraryDependencies ++= compile ++ testCompile,
-      crossScalaVersions := Seq("2.11.7", "2.10.4")
+      crossScalaVersions := Seq("2.11.7")
     )
     .settings(
       resolvers := Seq(
