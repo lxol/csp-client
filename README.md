@@ -22,3 +22,4 @@ Notes:
   In this case clearly the tag should be placed in your primary extension of hmrcGovUkTemplate. (pop ups will still only appear where configured on the eGain servers)
   * the client library contains typical config for the partial service endpoints.  Any entries in the application.conf file of your microservice will override them - for better or worse!
   * Consider wrapping the implementation in a feature flag to give you a config kill switch - just in case!
+
