@@ -38,15 +38,15 @@ object WebchatClient extends ServicesConfig {
   lazy val serviceUrl = baseUrl("csp-partials") + "/csp-partials"
 
 
-  def webchatOfferPartial()(implicit request: Request[_], ec: ExecutionContext): Html = {
+  def webchatOfferPartial()(implicit request: Request[_]): Html = {
     getPartialContent(serviceUrl + "/webchat-offers")
   }
 
-  def webchatClickToChatScriptPartial(entryPoint: String, template: String)(implicit request: Request[_], ec: ExecutionContext): Html = {
+  def webchatClickToChatScriptPartial(entryPoint: String, template: String)(implicit request: Request[_]): Html = {
     getPartialContent(serviceUrl + s"/webchat-click-to-chat/$entryPoint/$template")
   }
 
-  private def getPartialContent(url: String)(implicit request: Request[_], ec: ExecutionContext) = {
+  private def getPartialContent(url: String)(implicit request: Request[_]) = {
     val partialContent = CachedStaticHtmlPartialProvider.getPartialContent(url)
 
     partialContent.body match {
