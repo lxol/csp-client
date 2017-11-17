@@ -1,5 +1,6 @@
 CSP Client
 ==========
+[ ![Download](https://api.bintray.com/packages/hmrc/releases/csp-client/images/download.svg) ](https://bintray.com/hmrc/releases/csp-client/_latestVersion)
 
 Client library to ease implementation of Customer Service Platform products.
 ----------------------------------------------------------------------------
