@@ -46,9 +46,17 @@ object WebchatClient extends ServicesConfig {
     getPartialContent(serviceUrl + s"/webchat-click-to-chat/$entryPoint/$template")
   }
 
-  private def getPartialContent(url: String)(implicit request: Request[_]) = {
-    val partialContent = CachedStaticHtmlPartialProvider.getPartialContent(url)
+  def webchatClickToChat2ScriptPartial(entryPoint: String)(implicit request: Request[_]): Html = {
+    getPartialContent(serviceUrl + s"/open/$entryPoint")
+  }
 
+  def webchatAvailabilityPartial(entryPoint: String)(implicit request: Request[_]): Html = {
+    getPartialContent(serviceUrl + s"/availability/$entryPoint")
+  }
+
+
+  private def getPartialContent(url: String)(implicit request: Request[_]) = {
+    val partialContent: Html = CachedStaticHtmlPartialProvider.getPartialContent(url)
     partialContent.body match {
       case b if b.isEmpty => {
         Logger.error(s"No content found for $url")
