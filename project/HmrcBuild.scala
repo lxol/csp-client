@@ -39,7 +39,7 @@ object HmrcBuild extends Build {
     "org.scalatest"          %% "scalatest"            % "2.2.6"             % "test",
     "com.typesafe.play"      %% "play-test"            % PlayVersion.current % "test",
     "org.mockito"            % "mockito-all"           % "1.10.19"             % "test",
-    "uk.gov.hmrc"            %% "hmrctest"             % "2.3.0"             % "test"
+    "uk.gov.hmrc"            %% "hmrctest"             % "3.0.0"             % "test"
   )
 
 
