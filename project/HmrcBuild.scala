@@ -16,9 +16,9 @@ object HmrcBuild extends Build {
     .settings(scalaSettings: _*)
     .settings(defaultSettings(): _*)
     .settings(
+      scalaVersion := "2.11.11",
       targetJvm := "jvm-1.8",
-      libraryDependencies ++= compile ++ testCompile,
-      crossScalaVersions := Seq("2.11.7")
+      libraryDependencies ++= compile ++ testCompile
     )
     .settings(
       resolvers := Seq(
@@ -29,7 +29,7 @@ object HmrcBuild extends Build {
     )
 
   val compile = Seq(
-    "uk.gov.hmrc" %% "play-config" % "4.3.0",
+    "uk.gov.hmrc" %% "play-config" % "5.0.0",
     "uk.gov.hmrc" %% "logback-json-logger" % "3.1.0",
     "uk.gov.hmrc" %% "play-partials" % "6.1.0",
     "uk.gov.hmrc" %% "http-verbs" % "7.2.0"
