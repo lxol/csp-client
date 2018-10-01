@@ -5,14 +5,19 @@ import uk.gov.hmrc.DefaultBuildSettings._
 import uk.gov.hmrc.PublishingSettings._
 import uk.gov.hmrc.{SbtAutoBuildPlugin, ShellPrompt}
 import uk.gov.hmrc.versioning.SbtGitVersioning
+import uk.gov.hmrc.SbtArtifactory
 
 object HmrcBuild extends Build {
+
+
+  import uk.gov.hmrc.versioning.SbtGitVersioning.autoImport.majorVersion
 
   val appName = "csp-client"
   lazy val plugins : Seq[Plugins] = Seq(play.sbt.PlayScala)
 
   lazy val microservice = Project(appName, file("."))
-    .enablePlugins(SbtAutoBuildPlugin, SbtGitVersioning)
+    .enablePlugins(SbtAutoBuildPlugin, SbtGitVersioning, SbtArtifactory)
+    .settings(majorVersion := 3)
     .settings(scalaSettings: _*)
     .settings(defaultSettings(): _*)
     .settings(
@@ -22,8 +27,6 @@ object HmrcBuild extends Build {
     )
     .settings(
       resolvers := Seq(
-        Resolver.bintrayRepo("hmrc", "releases"),
-        Resolver.typesafeRepo("releases"),
         Resolver.jcenterRepo
       )
     )
