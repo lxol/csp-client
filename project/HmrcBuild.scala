@@ -11,6 +11,7 @@ object HmrcBuild extends Build {
 
 
   import uk.gov.hmrc.versioning.SbtGitVersioning.autoImport.majorVersion
+  import uk.gov.hmrc.SbtArtifactory.autoImport.makePublicallyAvailableOnBintray
 
   val appName = "csp-client"
   lazy val plugins : Seq[Plugins] = Seq(play.sbt.PlayScala)
@@ -18,6 +19,7 @@ object HmrcBuild extends Build {
   lazy val microservice = Project(appName, file("."))
     .enablePlugins(SbtAutoBuildPlugin, SbtGitVersioning, SbtArtifactory)
     .settings(majorVersion := 3)
+    .settings(makePublicallyAvailableOnBintray := true)
     .settings(scalaSettings: _*)
     .settings(defaultSettings(): _*)
     .settings(
