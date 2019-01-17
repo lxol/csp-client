@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 HM Revenue & Customs
+ * Copyright 2019 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -68,6 +68,7 @@ object WebchatClient extends ServicesConfig {
 
   object CachedStaticHtmlPartialProvider extends CachedStaticHtmlPartialRetriever {
     override val httpGet : CoreGet = new HttpGet with WSGet {
+      override lazy val configuration = Some(Play.current.configuration.underlying)
       override val hooks: Seq[HttpHook] = NoneRequired
     }
 
