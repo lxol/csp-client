@@ -26,6 +26,7 @@ import uk.gov.hmrc.play.partials._
 import uk.gov.hmrc.play.config.ServicesConfig
 import TimeUnit._
 
+import akka.actor.ActorSystem
 import play.Logger
 import play.api.Play
 import uk.gov.hmrc.http.{CoreGet, HttpGet}
@@ -33,7 +34,9 @@ import uk.gov.hmrc.http.{CoreGet, HttpGet}
 import scala.concurrent.duration.Duration
 
 object WebchatClient extends ServicesConfig {
+
   override protected def mode: play.api.Mode.Mode = Play.current.mode
+
   override protected def runModeConfiguration: play.api.Configuration = Play.current.configuration
 
   lazy val serviceUrl : String = baseUrl("csp-partials") + "/csp-partials"
@@ -68,6 +71,7 @@ object WebchatClient extends ServicesConfig {
 
   object CachedStaticHtmlPartialProvider extends CachedStaticHtmlPartialRetriever {
     override val httpGet : CoreGet = new HttpGet with WSGet {
+      override protected def actorSystem: ActorSystem = Play.current.actorSystem
       override lazy val configuration = Some(Play.current.configuration.underlying)
       override val hooks: Seq[HttpHook] = NoneRequired
     }
