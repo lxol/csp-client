@@ -20,12 +20,8 @@ import sbt._
 import uk.gov.hmrc.DefaultBuildSettings._
 import uk.gov.hmrc.{SbtArtifactory, SbtAutoBuildPlugin}
 import uk.gov.hmrc.versioning.SbtGitVersioning
-
-object HmrcBuild extends Build {
-
-
-  import uk.gov.hmrc.SbtArtifactory.autoImport.makePublicallyAvailableOnBintray
-  import uk.gov.hmrc.versioning.SbtGitVersioning.autoImport.majorVersion
+import uk.gov.hmrc.SbtArtifactory.autoImport.makePublicallyAvailableOnBintray
+import uk.gov.hmrc.versioning.SbtGitVersioning.autoImport.majorVersion
 
   val appName = "csp-client"
   lazy val plugins : Seq[Plugins] = Seq(play.sbt.PlayScala)
@@ -61,9 +57,3 @@ object HmrcBuild extends Build {
     "org.mockito" % "mockito-all" % "1.10.19" % "test",
     "uk.gov.hmrc" %% "hmrctest" % "3.4.0-play-25" % "test"
   )
-
-}
-
-object Developers {
-  def apply() = developers := List[Developer]()
-}
