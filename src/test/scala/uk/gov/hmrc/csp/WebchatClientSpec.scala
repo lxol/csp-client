@@ -42,7 +42,7 @@ class WebchatClientSpec extends WordSpec with MockitoSugar with Matchers {
       expireAfter shouldBe 666
     }
 
-    "retrieve default timeouts as values set in config when config is unavailable" in {
+    "retrieve default timeouts when config is unavailable" in {
 
       val builder = new GuiceApplicationBuilder()
       val configuration = builder.configuration
