@@ -19,21 +19,40 @@ package uk.gov.hmrc.csp
 import org.scalatest.mockito.MockitoSugar
 import org.scalatest.{Matchers, WordSpec}
 import play.api.inject.guice.GuiceApplicationBuilder
-import play.api.test._
-import play.api.test.Helpers._
+import play.api.libs.ws.WSClient
 
 class WebchatClientSpec extends WordSpec with MockitoSugar with Matchers {
 
   "WebchatClient" should {
     "retrieve timeouts as values set in config when config is available" in {
 
-      running(GuiceApplicationBuilder().build()) {
-        val refreshAfter = WebchatClient.CachedStaticHtmlPartialProvider.refreshSeconds
-        val expireAfter = WebchatClient.CachedStaticHtmlPartialProvider.expireSeconds
+      val builder = new GuiceApplicationBuilder()
+        .configure(
+          "csp-partials.refreshAfter" -> 66,
+          "csp-partials.expireAfter" -> 666
+        )
 
-        refreshAfter shouldBe 66
-        expireAfter shouldBe 666
-      }
+      val configuration = builder.configuration
+
+      val provider = new CachedStaticHtmlPartialProvider(mock[WSClient], configuration)
+      val refreshAfter = provider.refreshSeconds
+      val expireAfter = provider.expireSeconds
+
+      refreshAfter shouldBe 66
+      expireAfter shouldBe 666
+    }
+
+    "retrieve default timeouts as values set in config when config is unavailable" in {
+
+      val builder = new GuiceApplicationBuilder()
+      val configuration = builder.configuration
+
+      val provider = new CachedStaticHtmlPartialProvider(mock[WSClient], configuration)
+      val refreshAfter = provider.refreshSeconds
+      val expireAfter = provider.expireSeconds
+
+      refreshAfter shouldBe 60
+      expireAfter shouldBe 3600
     }
   }
 }

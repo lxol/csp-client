@@ -34,8 +34,10 @@ lazy val microservice = Project(appName, file("."))
     scalaVersion := "2.11.11",
     targetJvm := "jvm-1.8",
     libraryDependencies ++= PlayCrossCompilation.dependencies(
-      shared = compile ++ testCompile
-  )
+        shared = sharedLibs,
+        play25 = compilePlay25 ++ testCompilePlay25,
+        play26 = compilePlay26 ++ testCompilePlay26
+    )
   )
   .settings(
     resolvers := Seq(
@@ -45,17 +47,28 @@ lazy val microservice = Project(appName, file("."))
   )
   .settings(PlayCrossCompilation.playCrossCompilationSettings)
 
+val sharedLibs = Seq(
+  "uk.gov.hmrc" %% "play-config" % "7.5.0",
+  "uk.gov.hmrc" %% "logback-json-logger" % "4.6.0",
+  "com.typesafe.play" %% "play-test" % PlayCrossCompilation.version % "test",
+  "org.scalatest" %% "scalatest" % "3.0.8" % "test",
+  "org.mockito" % "mockito-all" % "1.10.19" % "test"
+)
 
-val compile = Seq(
-  "uk.gov.hmrc" %% "play-config" % "7.2.0",
-  "uk.gov.hmrc" %% "logback-json-logger" % "3.1.0",
-  "uk.gov.hmrc" %% "play-partials" % "6.5.0",
+val compilePlay25 = Seq(
+  "uk.gov.hmrc" %% "play-partials" % "6.9.0-play-25",
   "uk.gov.hmrc" %% "http-verbs" % "9.1.0-play-25"
 )
 
-val testCompile = Seq(
-  "org.scalatest" %% "scalatest" % "2.2.6" % "test",
-  "com.typesafe.play" %% "play-test" % PlayCrossCompilation.version % "test",
-  "org.mockito" % "mockito-all" % "1.10.19" % "test",
+val testCompilePlay25 = Seq(
   "uk.gov.hmrc" %% "hmrctest" % "3.4.0-play-25" % "test"
+)
+
+val compilePlay26 = Seq(
+  "uk.gov.hmrc" %% "play-partials" % "6.9.0-play-26",
+  "uk.gov.hmrc" %% "http-verbs" % "9.1.0-play-26"
+)
+
+val testCompilePlay26 = Seq(
+  "uk.gov.hmrc" %% "hmrctest" % "3.4.0-play-26" % "test"
 )
