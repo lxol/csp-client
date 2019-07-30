@@ -57,18 +57,18 @@ val sharedLibs = Seq(
 
 val compilePlay25 = Seq(
   "uk.gov.hmrc" %% "play-partials" % "6.9.0-play-25",
-  "uk.gov.hmrc" %% "http-verbs" % "9.1.0-play-25"
+  "uk.gov.hmrc" %% "http-verbs" % "9.8.0-play-25"
 )
 
 val testCompilePlay25 = Seq(
-  "uk.gov.hmrc" %% "hmrctest" % "3.4.0-play-25" % "test"
+  "uk.gov.hmrc" %% "hmrctest" % "3.9.0-play-25" % "test"
 )
 
 val compilePlay26 = Seq(
   "uk.gov.hmrc" %% "play-partials" % "6.9.0-play-26",
-  "uk.gov.hmrc" %% "http-verbs" % "9.1.0-play-26"
+  "uk.gov.hmrc" %% "http-verbs" % "9.8.0-play-26"
 )
 
 val testCompilePlay26 = Seq(
-  "uk.gov.hmrc" %% "hmrctest" % "3.4.0-play-26" % "test"
+  "uk.gov.hmrc" %% "hmrctest" % "3.9.0-play-26" % "test"
 )
