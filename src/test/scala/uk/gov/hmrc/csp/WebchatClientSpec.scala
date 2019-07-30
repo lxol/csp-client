@@ -16,7 +16,7 @@
 
 package uk.gov.hmrc.csp
 
-import org.scalatest.mockito.MockitoSugar
+import org.scalatestplus.mockito.MockitoSugar
 import org.scalatest.{Matchers, WordSpec}
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.libs.ws.WSClient
