@@ -16,34 +16,34 @@
 
 package uk.gov.hmrc.csp
 
-import java.util.concurrent.TimeUnit
+import java.util.concurrent.TimeUnit._
 
+import akka.actor.ActorSystem
+import uk.gov.hmrc.csp.config.ApplicationConfig
+import javax.inject.Inject
+import play.Logger
+import play.api.Configuration
+import play.api.libs.ws.WSClient
 import play.api.mvc.Request
 import play.twirl.api.Html
 import uk.gov.hmrc.http.hooks.HttpHook
+import uk.gov.hmrc.http.{CoreGet, HttpGet}
 import uk.gov.hmrc.play.http.ws.WSGet
 import uk.gov.hmrc.play.partials._
-import uk.gov.hmrc.play.config.ServicesConfig
-import TimeUnit._
-
-import akka.actor.ActorSystem
-import javax.inject.Inject
-import play.Logger
-import play.api.{Configuration, Play}
-import play.api.libs.ws.WSClient
-import uk.gov.hmrc.http.{CoreGet, HttpGet}
 
 import scala.concurrent.duration.Duration
 
-class CachedStaticHtmlPartialProvider @Inject()(wsClient: WSClient,
-                                                config: Configuration)
-  extends CachedStaticHtmlPartialRetriever {
+class CachedStaticHtmlPartialProvider @Inject()(wsclient: WSClient,
+                                                config: Configuration,
+                                                playActorSystem: ActorSystem)
+                  extends CachedStaticHtmlPartialRetriever {
+
   override val httpGet : CoreGet = new HttpGet with WSGet {
-    override protected def actorSystem: ActorSystem = Play.current.actorSystem
-    override lazy val configuration = Some(Play.current.configuration.underlying)
+    override protected def actorSystem: ActorSystem = playActorSystem
+    override lazy val configuration = Some(config.underlying)
     override val hooks: Seq[HttpHook] = NoneRequired
 
-    override def wsClient: WSClient = wsClient
+    override def wsClient: WSClient = wsclient
   }
 
   val refreshSeconds : Int = config.getInt("csp-partials.refreshAfter").getOrElse(60)
@@ -56,13 +56,9 @@ class CachedStaticHtmlPartialProvider @Inject()(wsClient: WSClient,
   override def expireAfter: Duration = Duration(expireSeconds, SECONDS)
 }
 
-class WebchatClient @Inject()(cachedStaticHtmlPartialProvider: CachedStaticHtmlPartialProvider) extends ServicesConfig {
+class WebchatClient @Inject()(cachedStaticHtmlPartialProvider: CachedStaticHtmlPartialProvider, configuration: ApplicationConfig) {
 
-  override protected def mode: play.api.Mode.Mode = Play.current.mode
-
-  override protected def runModeConfiguration: play.api.Configuration = Play.current.configuration
-
-  lazy val serviceUrl : String = baseUrl("csp-partials") + "/csp-partials"
+  lazy val serviceUrl : String = configuration.serviceUrl
 
   def webchatOfferPartial()(implicit request: Request[_]): Html = {
     getPartialContent(serviceUrl + "/webchat-offers")
@@ -80,7 +76,7 @@ class WebchatClient @Inject()(cachedStaticHtmlPartialProvider: CachedStaticHtmlP
     getPartialContent(serviceUrl + s"/availability/$entryPoint")
   }
 
-  private def getPartialContent(url: String)(implicit request: Request[_]) = {
+  private def getPartialContent(url: String)(implicit request: Request[_]): Html = {
     val partialContent: Html = cachedStaticHtmlPartialProvider.getPartialContent(url)
     partialContent.body match {
       case b if b.isEmpty =>
