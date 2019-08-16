@@ -26,7 +26,7 @@ val appName = "csp-client"
 
 lazy val microservice = Project(appName, file("."))
   .enablePlugins(SbtAutoBuildPlugin, SbtGitVersioning, SbtArtifactory)
-  .settings(majorVersion := 3)
+  .settings(majorVersion := 4)
   .settings(makePublicallyAvailableOnBintray := true)
   .settings(scalaSettings: _*)
   .settings(defaultSettings(): _*)
