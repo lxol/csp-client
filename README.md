@@ -5,15 +5,27 @@ CSP Client
 Client library to ease implementation of Customer Service Platform products.
 ----------------------------------------------------------------------------
 
+
+For Play 2.5:
 To use this in your project you will need to do the following steps:
 
-1. include the client library
-  * add `"uk.gov.hmrc" %% "csp-client" % "x.y.z"` to your project dependencies
-2. place the following code in the scala.html template where you want the webchat tag to appear
-  * `@uk.gov.hmrc.csp.WebchatClient.webchatOfferPartial()`
+1. Add `"uk.gov.hmrc" %% "csp-client" % "x.y.z"` to your project dependencies
+2. Inject the client library into your controller where you will use the needed views and pass it into your view either directly or implicitly. 
+3. Call the webchat client in the scala.html template where you want the webchat tag to appear
+  * `@webchatClient.webchatOfferPartial()`
   * (this example is for the offer based webchat)
 3. Get the offer urls setup on the eGain servers. The CSP team can help with this.     
 
+For Play 2.6:
+To use this in your project you will need to do the following steps:
+
+1. Add `"uk.gov.hmrc" %% "csp-client" % "x.y.z"` to your project dependencies
+2. Inject the client library into your views that need webchat
+  * `@this(webchatClient: WebchatClient)`
+3. Call the webchat client in the scala.html template where you want the webchat tag to appear
+  * `@webchatClient.webchatOfferPartial()`
+  * (this example is for the offer based webchat)
+3. Get the offer urls setup on the eGain servers. The CSP team can help with this. 
 
 Notes:
 ------
