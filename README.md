@@ -5,8 +5,9 @@ CSP Client
 Client library to ease implementation of Customer Service Platform products.
 ----------------------------------------------------------------------------
 
+**NB. The last supported version for the 3.x range is 3.4**
 
-For Play 2.5:
+**For Play 2.5:**
 To use this in your project you will need to do the following steps:
 
 1. Add `"uk.gov.hmrc" %% "csp-client" % "x.y.z"` to your project dependencies
@@ -16,7 +17,7 @@ To use this in your project you will need to do the following steps:
   * (this example is for the offer based webchat)
 3. Get the offer urls setup on the eGain servers. The CSP team can help with this.     
 
-For Play 2.6:
+**For Play 2.6:**
 To use this in your project you will need to do the following steps:
 
 1. Add `"uk.gov.hmrc" %% "csp-client" % "x.y.z"` to your project dependencies
