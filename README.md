@@ -30,10 +30,9 @@ To use this in your project you will need to do the following steps:
 
 Notes:
 ------
-
+  * You will need  webchat-frontend and csp-partials sections to your services in application.conf in any implementing service
   * Please have a look a the webchat-frontend example application for implementation examples.
   * If you are intending to use cobrowse then it is strongly recommended that the tag appears on all pages to allow tracking sessions.
   In this case clearly the tag should be placed in your primary extension of hmrcGovUkTemplate. (pop ups will still only appear where configured on the eGain servers)
   * the client library contains typical config for the partial service endpoints.  Any entries in the application.conf file of your microservice will override them - for better or worse!
   * Consider wrapping the implementation in a feature flag to give you a config kill switch - just in case!
-
