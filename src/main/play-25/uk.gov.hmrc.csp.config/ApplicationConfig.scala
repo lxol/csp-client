@@ -16,16 +16,16 @@
 
 package uk.gov.hmrc.csp.config
 
-import javax.inject.Inject
-import play.api.Configuration
+import javax.inject.{Inject, Singleton}
+import play.api.{Configuration, Mode}
 import uk.gov.hmrc.play.config.ServicesConfig
-import play.api.Play
 
-class ApplicationConfig @Inject()(configuration: Configuration) extends ServicesConfig {
+@Singleton
+class ApplicationConfig @Inject()(val runmode: Mode.Mode, configuration: Configuration) extends ServicesConfig {
 
-  override protected def mode: play.api.Mode.Mode = Play.current.mode
+  override protected def mode = runmode
 
-  override protected def runModeConfiguration: play.api.Configuration = Play.current.configuration
+  override protected def runModeConfiguration: play.api.Configuration = configuration
 
-  lazy val serviceUrl : String = baseUrl("csp-partials") + "/csp-partials"
+  lazy val serviceUrl: String = baseUrl("csp-partials") + "/csp-partials"
 }

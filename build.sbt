@@ -26,7 +26,7 @@ val appName = "csp-client"
 
 lazy val microservice = Project(appName, file("."))
   .enablePlugins(SbtAutoBuildPlugin, SbtGitVersioning, SbtArtifactory)
-  .settings(majorVersion := 3)
+  .settings(majorVersion := 4)
   .settings(makePublicallyAvailableOnBintray := true)
   .settings(scalaSettings: _*)
   .settings(defaultSettings(): _*)
@@ -57,7 +57,7 @@ val sharedLibs = Seq(
 
 val compilePlay25 = Seq(
   "uk.gov.hmrc" %% "play-partials" % "6.9.0-play-25",
-  "uk.gov.hmrc" %% "http-verbs" % "9.8.0-play-25"
+  "uk.gov.hmrc" %% "http-verbs" % "10.0.0-play-25" % "provided"
 )
 
 val testCompilePlay25 = Seq(
@@ -66,7 +66,7 @@ val testCompilePlay25 = Seq(
 
 val compilePlay26 = Seq(
   "uk.gov.hmrc" %% "play-partials" % "6.9.0-play-26",
-  "uk.gov.hmrc" %% "http-verbs" % "9.8.0-play-26"
+  "uk.gov.hmrc" %% "http-verbs" % "10.0.0-play-26" % "provided"
 )
 
 val testCompilePlay26 = Seq(
